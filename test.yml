@@ -1,5 +1,4 @@
 ---
-
 - hosts: app_server
   vars:
     home: /home/ansible
