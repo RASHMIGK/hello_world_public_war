@@ -1,0 +1,43 @@
+---
+
+- hosts: app_server
+  vars:
+    home: /home/ansible
+  #become: yes
+  #become_user: ubuntu
+  #become_method: sudo
+  tasks:
+
+  - name: debug variable
+    debug: var=home
+
+  - name: creating file
+    file:
+      path: "{{ home }}/test-ansible"
+      state: touch
+    register: task1
+
+  - name: debugging task output
+    debug: var=task1
+    
+  - name: Log into DockerHub
+    docker_login:
+      username: chetankg
+      password: rekcod
+    
+  - name: remove container
+    docker_container:
+      name: tomcat
+      state: absent
+    
+  - name: pull image from docker hub
+    docker_image:
+      name: chetankg/tomcat_deploy:${BUILD_NUMBER}
+      
+  - name: Re-create a redis container
+    docker_container:
+      name: tomcat
+      image: chetankg/tomcat_deploy:${BUILD_NUMBER}
+      state: present
+      exposed_ports:
+        - 8091
