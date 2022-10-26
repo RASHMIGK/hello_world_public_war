@@ -1,5 +1,5 @@
 ---
-- hosts: app_server
+- hosts: localhost
   vars:
     home: /home/ansible
   become: yes
