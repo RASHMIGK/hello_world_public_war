@@ -4,12 +4,12 @@
     - name: Log into DockerHub
       docker_login:
         registry: docker.io
-        username: siddeshg672
+        username: chetankg
         password: "{{ docker_password }}"
         
     - name: pull an image
       docker_image:
-        name: "siddeshg672/devopsapp:test-deploy_{{ BUILD_NUMBER }}"
+        name: "chetankg/deploy:{{ BUILD_NUMBER }}"
         source: pull
 
     - name: remove container
@@ -20,7 +20,7 @@
     - name: create a application container
       docker_container:
         name: devopsAppDeploy
-        image: "siddeshg672/devopsapp:test-deploy_{{ BUILD_NUMBER }}"
+        image: "chetankg/deploy:{{ BUILD_NUMBER }}"
         state: started
         ports:
           - "8111:8080"
