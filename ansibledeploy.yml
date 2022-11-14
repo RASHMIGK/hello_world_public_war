@@ -1,5 +1,5 @@
 ---
-- hosts: websever
+- hosts: webserver
   tasks:      
     - name: Log into DockerHub
       docker_login:
